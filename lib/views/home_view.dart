@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:location/location.dart';
+import 'package:ma_meteo/models/APIResponse.dart';
 import 'package:ma_meteo/models/GeoPosition.dart';
 import 'package:ma_meteo/services/ApiService.dart';
 import 'package:ma_meteo/services/LocationService.dart';
@@ -12,6 +13,7 @@ class HomeView extends StatefulWidget {
 
 class HomeViewState extends State<HomeView> {
   GeoPosition? userPosition;
+  APIResponse? apiResponse;
 
   @override
   void initState() {
@@ -26,8 +28,7 @@ class HomeViewState extends State<HomeView> {
         title: Text(userPosition?.city ?? "Ma météo"),
       ),
       body: Center(
-        child: Text(
-            "Notre position: \n${userPosition?.lat}\n${userPosition?.lon}"),
+        child: Text("Notre reponse : ${apiResponse?.cnt ?? 0}"),
       ),
     );
   }
@@ -37,8 +38,9 @@ class HomeViewState extends State<HomeView> {
     if (loc != null) {
       setState(() {
         userPosition = loc;
-        ApiService().callApi(userPosition!);
       });
+      apiResponse = await ApiService().callApi(userPosition!);
+      setState(() {});
     }
   }
 }
