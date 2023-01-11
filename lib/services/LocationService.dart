@@ -21,8 +21,10 @@ class LocationService {
   Future<GeoPosition?> getCity() async {
     final position = await getPosition();
     if (position == null) return null;
+
     final lat = position.latitude ?? 0.0;
     final lon = position.longitude ?? 0.0;
+
     List<geocoding.Placemark> placemarks =
         await geocoding.placemarkFromCoordinates(lat, lon);
     // print(placemarks);
