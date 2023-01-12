@@ -5,6 +5,8 @@ import 'package:ma_meteo/models/APIResponse.dart';
 import 'package:ma_meteo/models/GeoPosition.dart';
 import 'package:ma_meteo/services/ApiService.dart';
 import 'package:ma_meteo/services/LocationService.dart';
+import 'package:ma_meteo/views/ForecastView.dart';
+import 'package:ma_meteo/views/NoDataView.dart';
 
 class HomeView extends StatefulWidget {
   @override
@@ -27,9 +29,9 @@ class HomeViewState extends State<HomeView> {
       appBar: AppBar(
         title: Text(userPosition?.city ?? "Ma météo"),
       ),
-      body: Center(
-        child: Text("Notre reponse : ${apiResponse?.cnt ?? 0}"),
-      ),
+      body: (apiResponse == null)
+          ? NoDataView()
+          : ForecastView(response: apiResponse!),
     );
   }
 
