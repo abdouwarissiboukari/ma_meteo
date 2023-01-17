@@ -9,13 +9,17 @@ class DailyTileView extends StatelessWidget {
   DailyTileView({super.key, required this.day});
   @override
   Widget build(BuildContext context) {
-    return ListTile(
-      trailing: Image.network(
-        DataConverter().fromIcon(day.icon),
+    return Card(
+      color: Theme.of(context).primaryColorLight,
+      elevation: 7,
+      child: ListTile(
+        trailing: Image.network(
+          DataConverter().fromIcon(day.icon),
+        ),
+        leading: Text(day.day),
+        title: Text(day.description),
+        subtitle: Text(day.minAndMax()),
       ),
-      leading: Text(day.day),
-      title: Text(day.description),
-      subtitle: Text(day.minAndMax()),
     );
   }
 }

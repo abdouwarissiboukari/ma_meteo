@@ -15,12 +15,11 @@ class ForecastView extends StatelessWidget {
     List<GroupedWeather> byDay = DataConverter().byDay(response);
     return Column(
       children: [
-        CurrentWeather(forecast: response!.list.first),
+        CurrentWeather(forecast: response.list.first),
         Expanded(
-            child: ListView.separated(
+            child: ListView.builder(
                 itemBuilder: ((context, index) =>
                     DailyTileView(day: byDay[index])),
-                separatorBuilder: ((context, index) => const Divider()),
                 itemCount: byDay.length))
       ],
     );
