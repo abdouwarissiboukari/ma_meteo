@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:ma_meteo/models/GeoPosition.dart';
 
 class MyDrawer extends StatelessWidget {
@@ -16,33 +17,49 @@ class MyDrawer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final itemCount =
-        (myPosition == null) ? cities.length + 1 : cities.length + 2;
+    final itemCount = cities.length;
+
     return Drawer(
-      child: ListView.separated(
-          itemBuilder: ((context, index) {
-            if (index == 0) return header(context);
-            if (index == 1 && myPosition != null)
-              return tappable(myPosition!.city, false);
-            if (myPosition == null) return tappable(cities[index - 1], true);
-            return tappable(cities[index - 2], true);
-          }),
-          separatorBuilder: ((context, index) => const Divider()),
-          itemCount: itemCount),
-    );
+        child: Column(
+      children: [
+        header(context, myPosition!.city),
+        townTitle(),
+        Expanded(
+          child: ListView.separated(
+              itemBuilder: ((context, index) {
+                return tappable(cities[index], true);
+              }),
+              separatorBuilder: ((context, index) => const Divider()),
+              itemCount: itemCount),
+        )
+      ],
+    ));
   }
 
-  DrawerHeader header(BuildContext context) {
+  DrawerHeader header(BuildContext context, String string) {
     return DrawerHeader(
-      child: Column(
-        children: [
-          Icon(
-            Icons.location_on_outlined,
-            size: 32,
-            color: Theme.of(context).primaryColor,
+        decoration: BoxDecoration(color: Theme.of(context).primaryColor),
+        // padding: const EdgeInsets.symmetric(vertical: 50),
+        child: Expanded(
+          flex: 1,
+          child: Column(
+            children: [
+              const Icon(
+                Icons.location_on_outlined,
+                size: 32,
+                color: Colors.white,
+              ),
+              Text(string),
+            ],
           ),
-          const Text("Mes Villes"),
-        ],
+        ));
+  }
+
+  Widget townTitle() {
+    return Container(
+      child: Text(
+        "Gérer les villes",
+        style: GoogleFonts.signika(fontSize: 25),
       ),
     );
   }
