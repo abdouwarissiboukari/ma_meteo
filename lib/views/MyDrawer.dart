@@ -23,7 +23,7 @@ class MyDrawer extends StatelessWidget {
         child: Column(
       children: [
         header(context, myPosition!.city),
-        townTitle(),
+        townTitle(context),
         Expanded(
           child: ListView.separated(
               itemBuilder: ((context, index) {
@@ -37,11 +37,11 @@ class MyDrawer extends StatelessWidget {
   }
 
   DrawerHeader header(BuildContext context, String string) {
+    final Size size = MediaQuery.of(context).size;
     return DrawerHeader(
         decoration: BoxDecoration(color: Theme.of(context).primaryColor),
-        // padding: const EdgeInsets.symmetric(vertical: 50),
-        child: Expanded(
-          flex: 1,
+        child: Container(
+          width: size.width,
           child: Column(
             children: [
               const Icon(
@@ -55,11 +55,17 @@ class MyDrawer extends StatelessWidget {
         ));
   }
 
-  Widget townTitle() {
+  Widget townTitle(BuildContext context) {
+    final Size size = MediaQuery.of(context).size;
     return Container(
+      width: size.width,
+      height: 40,
+      alignment: Alignment.center,
+      transform: Matrix4.translationValues(0, -8, 0),
+      color: Theme.of(context).primaryColorLight,
       child: Text(
         "Gérer les villes",
-        style: GoogleFonts.signika(fontSize: 25),
+        style: GoogleFonts.signika(fontSize: 20),
       ),
     );
   }

@@ -39,7 +39,7 @@ class HomeViewState extends State<HomeView> {
         myPosition: userPosition,
         cities: cities,
         onTap: onTap,
-        onDetele: remoeveCity,
+        onDetele: removeCity,
       ),
       body: Column(
         children: [
@@ -99,7 +99,7 @@ class HomeViewState extends State<HomeView> {
   }
 
   // Supprimer une ville
-  remoeveCity(String string) async {
+  removeCity(String string) async {
     DataServices().removeCity(string).then((onSuccess) => updateCities());
   }
 
