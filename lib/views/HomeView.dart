@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:location/location.dart';
 import 'package:ma_meteo/models/APIResponse.dart';
 import 'package:ma_meteo/models/GeoPosition.dart';
 import 'package:ma_meteo/services/ApiService.dart';

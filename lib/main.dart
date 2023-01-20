@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:ma_meteo/views/home_view.dart';
+import 'package:ma_meteo/views/HomeView.dart';
 
 void main() {
   //Assurer l'init
