@@ -69,6 +69,7 @@ class HomeViewState extends State<HomeView> {
     if (positionToCall == null) return;
 
     apiResponse = await ApiService().callApi(positionToCall!);
+    print(apiResponse!.list);
     setState(() {});
   }
 

@@ -24,6 +24,7 @@ class MyDrawer extends StatelessWidget {
       children: [
         header(context, myPosition!.city),
         townTitle(context),
+        const Divider(),
         Expanded(
           child: ListView.separated(
               itemBuilder: ((context, index) {
@@ -39,7 +40,7 @@ class MyDrawer extends StatelessWidget {
   DrawerHeader header(BuildContext context, String string) {
     final Size size = MediaQuery.of(context).size;
     return DrawerHeader(
-        decoration: BoxDecoration(color: Theme.of(context).primaryColor),
+        decoration: BoxDecoration(color: Theme.of(context).backgroundColor),
         child: Container(
           width: size.width,
           child: Column(
@@ -58,13 +59,14 @@ class MyDrawer extends StatelessWidget {
   Widget townTitle(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
     return Container(
+      margin: const EdgeInsets.only(top: 8),
       width: size.width,
       height: 40,
       alignment: Alignment.center,
       transform: Matrix4.translationValues(0, -8, 0),
-      color: Theme.of(context).primaryColorLight,
+      // color: Theme.of(context).primaryColorLight,
       child: Text(
-        "Gérer les villes",
+        "Lieux favoris",
         style: GoogleFonts.signika(fontSize: 20),
       ),
     );

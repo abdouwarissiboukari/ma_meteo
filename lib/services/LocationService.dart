@@ -71,6 +71,10 @@ class LocationService {
         await geoCode.forwardGeocoding(address: city);
     if (coordinates == null) return null;
 
+    final Address address = await geoCode.reverseGeocoding(
+        latitude: coordinates.latitude!.toDouble(),
+        longitude: coordinates.longitude!.toDouble());
+
     return GeoPosition(
         city: city,
         lat: coordinates.latitude!.toDouble(),
