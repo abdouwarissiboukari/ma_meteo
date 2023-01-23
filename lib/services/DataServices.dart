@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class DataServices {
@@ -16,7 +17,7 @@ class DataServices {
     final prefs = await SharedPreferences.getInstance();
     var list = prefs.getStringList(key) ?? [];
 
-    list.add(string);
+    if (!list.contains(string)) list.add(string);
 
     return prefs.setStringList(key, list);
   }

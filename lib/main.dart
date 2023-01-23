@@ -1,13 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:ma_meteo/services/DataProvider.dart';
 import 'package:ma_meteo/views/HomeView.dart';
+import 'package:provider/provider.dart';
 
 void main() {
   //Assurer l'init
   WidgetsFlutterBinding.ensureInitialized();
   //Vouloir l'application uniquement en portrait
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
-  runApp(const MyApp());
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => DataProvider()),
+      ],
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {

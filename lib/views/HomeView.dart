@@ -10,6 +10,8 @@ import 'package:ma_meteo/views/ForecastView.dart';
 import 'package:ma_meteo/views/MyDrawer.dart';
 import 'package:ma_meteo/views/NoDataView.dart';
 
+GeoPosition? positionToCall;
+
 class HomeView extends StatefulWidget {
   @override
   HomeViewState createState() => HomeViewState();
@@ -17,14 +19,13 @@ class HomeView extends StatefulWidget {
 
 class HomeViewState extends State<HomeView> {
   GeoPosition? userPosition;
-  GeoPosition? positionToCall;
-  List<String> cities = [];
+  // List<String> cities = [];
   APIResponse? apiResponse;
 
   @override
   void initState() {
     getUserLocation();
-    updateCities();
+    // updateCities();
     super.initState();
   }
 
@@ -36,13 +37,14 @@ class HomeViewState extends State<HomeView> {
       ),
       drawer: MyDrawer(
         myPosition: userPosition,
-        cities: cities,
+        // cities: cities,
         onTap: onTap,
-        onDetele: removeCity,
+        // onDetele: removeCity,
+        onTapCurrent: onTapCurrent,
       ),
       body: Column(
         children: [
-          AddCityView(onAddCity: onAddCity),
+          AddCityView(),
           Expanded(
               child: (apiResponse == null)
                   ? NoDataView()
@@ -69,14 +71,13 @@ class HomeViewState extends State<HomeView> {
     if (positionToCall == null) return;
 
     apiResponse = await ApiService().callApi(positionToCall!);
-    print(apiResponse!.list);
     setState(() {});
   }
 
 // Nouvelle ville
   onTap(String string) async {
     Navigator.of(context).pop();
-    removeKeyboard();
+    // removeKeyboard();
     if (string == userPosition?.city) {
       positionToCall = userPosition;
       callApi();
@@ -86,26 +87,36 @@ class HomeViewState extends State<HomeView> {
     }
   }
 
+  // Revenir sur la position actuelle
+  onTapCurrent() async {
+    Navigator.of(context).pop();
+    // removeKeyboard();
+    if (userPosition != null) {
+      positionToCall = userPosition;
+      callApi();
+    }
+  }
+
   removeKeyboard() {
     FocusScope.of(context).requestFocus(FocusNode());
   }
 
 // Ajouter une nouvelle ville
-  onAddCity(String string) async {
-    if (string.isNotEmpty) {
-      DataServices().addCity(string).then((onSuccess) => updateCities());
-      removeKeyboard();
-    }
-  }
+  // onAddCity(String string) async {
+  //   if (string.isNotEmpty) {
+  //     DataServices().addCity(string).then((onSuccess) => updateCities());
+  //     removeKeyboard();
+  //   }
+  // }
 
   // Supprimer une ville
-  removeCity(String string) async {
-    DataServices().removeCity(string).then((onSuccess) => updateCities());
-  }
+  // removeCity(String string) async {
+  //   DataServices().removeCity(string).then((onSuccess) => updateCities());
+  // }
 
   //Mettre a jour les ville
-  updateCities() async {
-    cities = await DataServices().getCities();
-    setState(() {});
-  }
+  // updateCities() async {
+  //   cities = await DataServices().getCities();
+  //   setState(() {});
+  // }
 }

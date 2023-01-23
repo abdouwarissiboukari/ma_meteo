@@ -51,6 +51,8 @@ class LocationService {
 
     final GeoPosition geoPosition = GeoPosition(
       city: address.city ?? "",
+      country: address.countryName ?? "",
+      region: address.region ?? "",
       lat: lat,
       lon: lon,
     );
@@ -77,6 +79,8 @@ class LocationService {
 
     return GeoPosition(
         city: city,
+        country: address.countryName ?? "",
+        region: address.region ?? "",
         lat: coordinates.latitude!.toDouble(),
         lon: coordinates.longitude!.toDouble());
   }
